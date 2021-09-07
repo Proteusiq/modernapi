@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+sqlmodel
+python-multipart
+celery==5.1.2
+redis==3.5.3
+sqlalchemy
+passlib
+bcrypt
+python-jose
