@@ -8,3 +8,4 @@ sqlalchemy
 passlib
 bcrypt
 python-jose
+python-decouple

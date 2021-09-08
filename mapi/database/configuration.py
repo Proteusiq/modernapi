@@ -1,11 +1,19 @@
 from typing import Optional
+from decouple import config
+from sqlmodel import Field, Session, SQLModel, create_engine
 
-from sqlmodel import Field, SQLModel, create_engine
 
+DATABASE_URL = config("DATABASE_URI", default="sqlite:///database.db")
 
-sqlite_file_name = "database.db"
-sqlite_url = f"sqlite:///{sqlite_file_name}"
-
-engine = create_engine(sqlite_url, echo=True)
+engine = create_engine(DATABASE_URL, echo=True)
 
 SQLModel.metadata.create_all(engine)
+
+
+def get_db():
+
+    db = Session(engine)
+    try:
+        yield db
+    finally:
+        db.close()
