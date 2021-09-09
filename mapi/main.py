@@ -2,6 +2,8 @@ from fastapi import FastAPI, Request, File, UploadFile, Depends
 from models import models
 from database.configuration import engine
 from core import user, auth
+from schema import token
+
 from celery.result import AsyncResult
 from worker import do_this  # to minio
 
@@ -22,14 +24,17 @@ async def index(request: Request):
 
 
 @app.post("/files/")
-async def create_file(file: bytes = File(...)):
+async def create_file(
+    file: bytes = File(...),
+    authenticated: bool = Depends(token.verify_token),
+):
     return {"file_size": len(file)}
 
 
 @app.post("/uploadfile/")
 async def create_upload_file(
     file: UploadFile = File(...),
-    authenticated: bool = Depends(...),
+    authenticated: bool = Depends(auth.login),
 ):
     # minio.delay(file)
     return {"filename": file.filename}
