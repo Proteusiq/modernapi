@@ -2,3 +2,4 @@
 .env
 .mypy*
 *_cache
+*__pycache__*

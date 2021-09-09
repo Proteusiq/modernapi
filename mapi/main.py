@@ -1,14 +1,24 @@
-from fastapi import FastAPI, File, UploadFile
-
+from fastapi import FastAPI, Request, File, UploadFile, Depends
+from models import models
+from database.configuration import engine
+from core import user, auth
 from celery.result import AsyncResult
 from worker import do_this  # to minio
 
-app = FastAPI(title="Awesome API")
+app = FastAPI(
+    title="Awesome API",
+    description="Heavly DodgeAPI",
+    version="0.0.1",
+)
+
+
+app.include_router(auth.router)
+app.include_router(user.router)
 
 
 @app.get("/")
-def home():
-    return {"message": "home sweet home!"}
+async def index(request: Request):
+    return {"request": request}
 
 
 @app.post("/files/")
@@ -17,7 +27,10 @@ async def create_file(file: bytes = File(...)):
 
 
 @app.post("/uploadfile/")
-async def create_upload_file(file: UploadFile = File(...)):
+async def create_upload_file(
+    file: UploadFile = File(...),
+    authenticated: bool = Depends(...),
+):
     # minio.delay(file)
     return {"filename": file.filename}
 
