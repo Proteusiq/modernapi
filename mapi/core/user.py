@@ -1,25 +1,19 @@
-from fastapi import APIRouter, Depends, Response, status
-from sqlmodel import Session
-from schema import schemas
-from models import models
-from database import configuration
-from typing import List
-from api import user
+from fastapi import APIRouter, Depends
+from models.users import User
 
-router = APIRouter(tags=["Users"], prefix="/users")
-get_db = configuration.get_db
+from api.security import get_current_active_user
 
-
-@router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.ShowUser)
-def create_user(request: schemas.User, db: Session = Depends(get_db)):
-    return user.create(request, db)
+router = APIRouter(
+    prefix="/users",
+    tags=["Authentication"],
+)
 
 
-@router.get("/", status_code=status.HTTP_200_OK, response_model=List[schemas.ShowUser])
-def get_users(db: Session = Depends(get_db)):
-    return user.get_all(db)
+@router.get("/me/", response_model=User)
+async def read_users_me(current_user: User = Depends(get_current_active_user)):
+    return current_user
 
 
-@router.get("/{id}", status_code=status.HTTP_200_OK, response_model=schemas.ShowUser)
-def get_user_by_id(id: int, db: Session = Depends(get_db)):
-    return user.show(id, db)
+@router.get("/me/items/")
+async def read_own_items(current_user: User = Depends(get_current_active_user)):
+    return [{"item_id": "Foo", "owner": current_user.username}]
