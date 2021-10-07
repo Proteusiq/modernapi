@@ -10,7 +10,7 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import ValidationError
 
-from models.user import get_user
+from database.configuration import get_user
 from schemas.user import User
 from schemas.token import TokenData
 
