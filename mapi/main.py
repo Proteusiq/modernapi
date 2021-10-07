@@ -1,16 +1,5 @@
-from datetime import datetime, timedelta
-from typing import Optional
-
-from fastapi import Depends, FastAPI, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from jose import JWTError, jwt
-from passlib.context import CryptContext
-
-from api import security
-from models.users import User, UserInDB
-from models.token import Token, TokenData
-from core import auth
-from core import user
+from fastapi import FastAPI
+from core import auth, user, status
 
 
 app = FastAPI(
@@ -22,3 +11,4 @@ app = FastAPI(
 
 app.include_router(auth.router)
 app.include_router(user.router)
+app.include_router(status.router)

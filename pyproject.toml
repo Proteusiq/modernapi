@@ -1,26 +1,27 @@
 [tool.poetry]
-name = "api"
+name = "modernapi"
 version = "0.1.0"
-description = ""
+description = "Building a secured API with FastAPI"
 authors = ["Prayson W. Daniel <praysonpi@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-fastapi = "^0.68.1"
-uvicorn = "^0.15.0"
-redis = "^3.5.3"
-celery = "^5.1.2"
-python-multipart = "^0.0.5"
+fastapi = "^0.68.2"
 sqlmodel = "^0.0.4"
-SQLAlchemy = "^1.4.23"
-passlib = "^1.7.4"
-bcrypt = "^3.2.0"
-python-decouple = "^3.4"
+uvicorn = "^0.15.0"
 python-jose = "^3.3.0"
+passlib = "^1.7.4"
+python-multipart = "^0.0.5"
+bcrypt = "^3.2.0"
+python-decouple = "^3.5"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
-black = {version = "^21.8b0", allow-prereleases = true}
+black = "flake8"
+flake8 = "^3.9.2"
+pytest = "^6.2.5"
+pylint = "^2.11.1"
+nox = "^2021.10.1"
+invoke = "^1.6.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
