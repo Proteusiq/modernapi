@@ -9,6 +9,6 @@ sqlalchemy==1.4.25
 sqlmodel==0.0.4
 uvicorn==0.15.0
 
-# Celery
-celery==5.1.2
-redis==3.5.3
+## Celery
+# celery==5.1.2
+# redis==3.5.3

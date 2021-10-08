@@ -1,6 +1,6 @@
 from sqlmodel import SQLModel, create_engine
 from decouple import config
-from api.security import get_password_hash
+from core.security import get_password_hash
 
 
 DATABASE_URL = config("DATABASE_URI", default="sqlite:///database.db")

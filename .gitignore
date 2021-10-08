@@ -3,3 +3,4 @@
 .mypy*
 *_cache
 *__pycache__*
+*.db

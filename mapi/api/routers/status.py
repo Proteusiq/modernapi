@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from schemas.user import User
-from api import security
+from core import security
 
 router = APIRouter(
     prefix="/status",
