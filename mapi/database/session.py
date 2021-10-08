@@ -1,6 +1,10 @@
-from sqlmodel import Session, select
+from decouple import config
+from sqlmodel import Session, create_engine, select
 from models.user import UserInDB
-from database.configuration import engine
+
+
+DATABASE_URL = config("DATABASE_URI", default="sqlite:///database.db")
+engine = create_engine(DATABASE_URL, echo=False)
 
 
 def get_user(username: str):

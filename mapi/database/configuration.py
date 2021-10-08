@@ -2,7 +2,7 @@ from sqlmodel import SQLModel, create_engine
 from decouple import config
 
 DATABASE_URL = config("DATABASE_URI", default="sqlite:///database.db")
-engine = create_engine(DATABASE_URL, echo=True)
+engine = create_engine(DATABASE_URL, echo=False)
 
 
 def create_db_and_tables():
@@ -36,6 +36,10 @@ if __name__ == "__main__":
         session.add(hero_2)
         session.commit()
 
-    # Test:
+    Test:
+
+    print("Test:")
     user = get_user("Spider-Boy")
+
+    print("Results:")
     print(user)
