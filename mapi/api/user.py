@@ -5,9 +5,11 @@ from api.security import get_password_hash
 from models.user import UserInDB, User
 
 
-def create(request: User, db: Session):
+def create(request: UserInDB, db: Session):
     hashedPassword = get_password_hash(request.password)
-    user = UserInDB(name=request.username, email=request.email, password=hashedPassword)
+    user = UserInDB(
+        username=request.username, email=request.email, password=hashedPassword
+    )
     db.add(user)
     db.commit()
     db.refresh(user)

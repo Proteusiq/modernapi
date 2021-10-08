@@ -1,5 +1,7 @@
 from sqlmodel import SQLModel, create_engine
 from decouple import config
+from api.security import get_password_hash
+
 
 DATABASE_URL = config("DATABASE_URI", default="sqlite:///database.db")
 engine = create_engine(DATABASE_URL, echo=False)
@@ -20,14 +22,14 @@ if __name__ == "__main__":
         username="Deadpond",
         email="deadpond@example.com",
         full_name="Dive Wilson",
-        hashed_password="$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
+        hashed_password=get_password_hash("secret"),
         disabled=True,
     )
     hero_2 = UserInDB(
         username="Spider-Boy",
         email="spider@example.com",
         full_name="Pedro Parqueador",
-        hashed_password="$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
+        hashed_password=get_password_hash("secured"),
     )
 
     with Session(engine) as session:
@@ -36,7 +38,7 @@ if __name__ == "__main__":
         session.add(hero_2)
         session.commit()
 
-    Test:
+    # Test:
 
     print("Test:")
     user = get_user("Spider-Boy")
