@@ -18,30 +18,30 @@ if __name__ == "__main__":
 
     create_db_and_tables()
 
-    hero_1 = UserInDB(
-        username="Deadpond",
-        email="deadpond@example.com",
-        full_name="Dive Wilson",
+    user_1 = UserInDB(
+        username="Proteusiq",
+        email="praysonpi@example.com",
+        full_name="Prayson W. Daniel",
         hashed_password=get_password_hash("secret"),
-        disabled=True,
+        disabled=False,
     )
-    hero_2 = UserInDB(
-        username="Spider-Boy",
-        email="spider@example.com",
-        full_name="Pedro Parqueador",
+    user_2 = UserInDB(
+        username="SuperMario",
+        email="supermario@example.com",
+        full_name="Mario J. L. Daniel",
         hashed_password=get_password_hash("secured"),
     )
 
     with Session(engine) as session:
 
-        session.add(hero_1)
-        session.add(hero_2)
+        session.add(user_1)
+        session.add(user_2)
         session.commit()
 
     # Test:
 
-    print("Test:")
-    user = get_user("Spider-Boy")
+    print("Test: Create User")
+    user = get_user("Proteusiq")
 
     print("Results:")
     print(user)
