@@ -1,23 +1,24 @@
 from sqlmodel import Session
 
 from fastapi import HTTPException, status
-from schema.hash import Hash
+from api.security import get_password_hash
+from models.user import UserInDB, User
 
 
 def create(request: User, db: Session):
-    hashedPassword = Hash.bcrypt(request.password)
-    user = User(name=request.name, email=request.email, password=hashedPassword)
+    hashedPassword = get_password_hash(request.password)
+    user = UserInDB(name=request.username, email=request.email, password=hashedPassword)
     db.add(user)
     db.commit()
     db.refresh(user)
     return user
 
 
-def show(id: int, db: Session):
-    user = db.query(User).filter(User.id == id).first()
+def show(username: str, db: Session):
+    user = db.query(User).filter(User.username == username).first()
     if not user:
         raise HTTPException(
-            status.HTTP_404_NOT_FOUND, detail=f"User with id {id} not found"
+            status.HTTP_404_NOT_FOUND, detail=f"User with username {username} not found"
         )
     return user
 
