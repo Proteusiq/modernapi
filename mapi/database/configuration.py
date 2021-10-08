@@ -1,62 +1,41 @@
-from typing import Optional
+from sqlmodel import SQLModel, create_engine
 from decouple import config
-from sqlmodel import Field, Session, SQLModel, create_engine
-
 
 DATABASE_URL = config("DATABASE_URI", default="sqlite:///database.db")
-
 engine = create_engine(DATABASE_URL, echo=True)
-
-hero_1 = UserInDB(
-    username="Deadpond",
-    email="deadpond@example.com",
-    full_name="Dive Wilson",
-    hashed_password="gogo",
-)
-hero_2 = UserInDB(
-    username="Spider-Boy",
-    email="spider@example.com",
-    full_name="Pedro Parqueador",
-    hashed_password="$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
-)
-
 
 
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
 
 
-create_db_and_tables()
+if __name__ == "__main__":
+    from sqlmodel import Session, select
+    from models.user import UserInDB
+    from database.session import get_user
 
-# with Session(engine) as session:
+    create_db_and_tables()
 
-#     session.add(hero_1)
-#     session.add(hero_2)
-#     session.commit()
-
-# with Session(engine) as session:
-
-#     selection = select(UserInDB).where(UserInDB.username == "Spider-Boy")
-#     result = session.exec(selection).first()
-
-#     print(result)
-
-
-def get_user(username: str):
+    hero_1 = UserInDB(
+        username="Deadpond",
+        email="deadpond@example.com",
+        full_name="Dive Wilson",
+        hashed_password="$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
+        disabled=True,
+    )
+    hero_2 = UserInDB(
+        username="Spider-Boy",
+        email="spider@example.com",
+        full_name="Pedro Parqueador",
+        hashed_password="$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
+    )
 
     with Session(engine) as session:
 
-        selection = select(UserInDB).where(UserInDB.username == username)
-        user = session.exec(selection).first()
+        session.add(hero_1)
+        session.add(hero_2)
+        session.commit()
 
-        return user
-
-
-
-def get_session():
-
-    session = Session(engine)
-    try:
-        yield session
-    finally:
-        session.close()
+    # Test:
+    user = get_user("Spider-Boy")
+    print(user)
