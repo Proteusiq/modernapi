@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from core import auth, user, status
+from api.routers import auth, user, status
 
 
 app = FastAPI(

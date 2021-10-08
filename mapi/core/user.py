@@ -1,20 +1,29 @@
-from fastapi import APIRouter, Security, Depends
-from schemas.user import User
-from api import security
+from sqlmodel import Session
 
-router = APIRouter(
-    prefix="/users",
-    tags=["User"],
-)
+from fastapi import HTTPException, status
+from core.security import get_password_hash
+from models.user import UserInDB, User
 
 
-@router.get("/me/", response_model=User)
-async def read_users_me(current_user: User = Depends(security.get_current_active_user)):
-    return current_user
+def create(request: UserInDB, db: Session):
+    hashedPassword = get_password_hash(request.password)
+    user = UserInDB(
+        username=request.username, email=request.email, password=hashedPassword
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return user
 
 
-@router.get("/me/items/")
-async def read_own_items(
-    current_user: User = Security(security.get_current_active_user, scopes=["items"])
-):
-    return [{"item_id": "Foo", "owner": current_user.username}]
+def show(username: str, db: Session):
+    user = db.query(User).filter(User.username == username).first()
+    if not user:
+        raise HTTPException(
+            status.HTTP_404_NOT_FOUND, detail=f"User with username {username} not found"
+        )
+    return user
+
+
+def get_all(db: Session):
+    return db.query(models.User).all()
