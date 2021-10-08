@@ -9,23 +9,3 @@ services:
     command: uvicorn main:app --host 0.0.0.0 --reload
     volumes:
       - ./mapi:/usr/mapi/app
-    environment:
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-    depends_on:
-      - redis
-
-  worker:
-    build: ./mapi
-    command: celery worker --app=worker.celery --loglevel=info
-    volumes:
-      - ./mapi:/usr/mapi
-    environment:
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-    depends_on:
-      - api
-      - redis
-
-  redis:
-    image: redis:6-alpine
