@@ -18,30 +18,29 @@ if __name__ == "__main__":
 
     create_db_and_tables()
 
-    user_1 = UserInDB(
-        username="Proteusiq",
-        email="praysonpi@example.com",
-        full_name="Prayson W. Daniel",
-        hashed_password=get_password_hash("secret"),
+    mrrobot = UserInDB(
+        username="MrRobot",
+        email="elliotalderson@protonmail.ch",
+        full_name="Elliot Alderson",
+        hashed_password=get_password_hash("fsociety"),
         disabled=False,
+        access_level=5,
     )
-    user_2 = UserInDB(
-        username="SuperMario",
-        email="supermario@example.com",
-        full_name="Mario J. L. Daniel",
-        hashed_password=get_password_hash("secured"),
-    )
+
 
     with Session(engine) as session:
 
-        session.add(user_1)
-        session.add(user_2)
+        session.add(mrrobot)
         session.commit()
+
+        print(f"[+]  Created {mrrobot.username!r}")
 
     # Test:
 
-    print("Test: Create User")
-    user = get_user("Proteusiq")
+    print(f"[+]  Retrieve {mrrobot.username!r}")
+    user = get_user(mrrobot.username)
 
-    print("Results:")
-    print(user)
+    print((f"User {user.full_name!r} with "
+           f"access level {user.access_level!r} "
+           "was added")
+    )
