@@ -24,9 +24,7 @@ if __name__ == "__main__":
         full_name="Elliot Alderson",
         hashed_password=get_password_hash("fsociety"),
         disabled=False,
-        access_level=5,
     )
-
 
     with Session(engine) as session:
 
@@ -40,7 +38,4 @@ if __name__ == "__main__":
     print(f"[+]  Retrieve {mrrobot.username!r}")
     user = get_user(mrrobot.username)
 
-    print((f"User {user.full_name!r} with "
-           f"access level {user.access_level!r} "
-           "was added")
-    )
+    print((f"User {user.full_name!r} added to DB"))

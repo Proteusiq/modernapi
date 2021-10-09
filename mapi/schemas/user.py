@@ -1,4 +1,4 @@
-from typing import Literal, Optional
+from typing import Optional
 from pydantic import BaseModel
 
 
@@ -11,4 +11,3 @@ class User(BaseModel):
 
 class UserInDB(User):
     hashed_password: str
-    access_level: Optional[Literal[1, 3, 5]] = 1

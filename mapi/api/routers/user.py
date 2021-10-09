@@ -2,10 +2,7 @@ from fastapi import APIRouter, Security, Depends
 from schemas.user import User
 from core import security
 
-router = APIRouter(
-    prefix="/users",
-    tags=["User"],
-)
+router = APIRouter(prefix="/users", tags=["User"],)
 
 
 @router.get("/me/", response_model=User)

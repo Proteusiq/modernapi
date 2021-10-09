@@ -1,4 +1,4 @@
-from typing import Optional, Literal
+from typing import Optional
 from sqlmodel import Field, SQLModel
 
 
@@ -15,4 +15,3 @@ class UserInDB(SQLModel, table=True):
     full_name: str
     disabled: Optional[bool] = None
     hashed_password: str
-    access_level: Optional[Literal[1, 3, 5]] = 1

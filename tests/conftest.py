@@ -1,7 +1,7 @@
 import pytest
 from starlette.testclient import TestClient
 
-from mapi.main import app 
+from mapi.main import app
 
 
 @pytest.fixture()
