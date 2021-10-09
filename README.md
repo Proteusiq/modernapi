@@ -20,7 +20,7 @@ uvicorn main:app --reload
 
 # API
 API swagger is running at `localhost:8000/docs`. <br>
-Init DB added user `MrRobot` with `fsociety` as password 
+Init DB added user `MrRobot` with `fsociety` as password. 
 
 # TODO
 * [ ] Add tests
