@@ -19,10 +19,9 @@ uvicorn main:app --reload
 ```
 
 # Project Direction
-My desire is to create a template that simple and robust. <br>
-Level access and admin power to CRUD users is next on my table.
+My desire is  to create a template that is simple and robust. 
+Level access and admin power to CRUD users are next on my table. <br>
 I welcome PR and any help to make this repository a starting point for building secured APIs.
-
 
 # API
 API swagger is running at `localhost:8000/docs`. <br>
