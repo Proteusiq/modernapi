@@ -5,7 +5,7 @@ services:
   api:
     build: ./mapi
     ports:
-      - 8004:8000
+      - 8000:8000
     command: uvicorn main:app --host 0.0.0.0 --reload
     volumes:
       - ./mapi:/usr/mapi/app
