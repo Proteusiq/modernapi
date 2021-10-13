@@ -12,7 +12,7 @@ def create_db_and_tables():
 
 
 if __name__ == "__main__":
-    from sqlmodel import Session, select
+    from sqlmodel import Session
     from models.user import UserInDB
     from database.session import get_user
 

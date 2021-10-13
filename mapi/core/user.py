@@ -26,4 +26,4 @@ def show(username: str, db: Session):
 
 
 def get_all(db: Session):
-    return db.query(models.User).all()
+    return db.query(User).all()
