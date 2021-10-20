@@ -1,6 +1,6 @@
 from sqlmodel import SQLModel, create_engine
 from decouple import config
-from core.security import get_password_hash
+
 
 
 DATABASE_URL = config("DATABASE_URI", default="sqlite:///database.db")
@@ -12,30 +12,27 @@ def create_db_and_tables():
 
 
 if __name__ == "__main__":
-    from sqlmodel import Session
-    from models.user import UserInDB
-    from database.session import get_user
+    from schemas.user import UserCreate
+    from database.session import get_user, create_user
 
     create_db_and_tables()
 
-    mrrobot = UserInDB(
+    admin = UserCreate(
         username="MrRobot",
         email="elliotalderson@protonmail.ch",
         full_name="Elliot Alderson",
-        hashed_password=get_password_hash("fsociety"),
+        password="fsociety",
         disabled=False,
+        role_name=["Admin", ]
     )
 
-    with Session(engine) as session:
-
-        session.add(mrrobot)
-        session.commit()
-
-        print(f"[+]  Created {mrrobot.username!r}")
+    
+    create_user(user=admin)
+    print(f"[+]  Created {admin.username!r}")
 
     # Test:
 
-    print(f"[+]  Retrieve {mrrobot.username!r}")
-    user = get_user(mrrobot.username)
+    print(f"[+]  Retrieve {admin.username!r}")
+    user = get_user(admin.username)
 
     print((f"User {user.full_name!r} added to DB"))

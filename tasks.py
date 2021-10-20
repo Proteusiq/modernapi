@@ -1,4 +1,17 @@
-from invoke import task
+from invoke import task, watchers
+
+
+class Watcher(watchers.StreamWatcher):                                 
+    def __init__(self):                                                         
+        super().__init__()                                                      
+        self.len = 0                                                            
+                                                                                
+    def submit(self, stream):                                                   
+        new = stream[self.len:]                                                 
+        print(new, end='')                                                      
+        self.len = len(stream)                                                  
+        return []  
+
 
 
 @task
@@ -19,6 +32,21 @@ def init_db(session):
     command = "PYTHONPATH=./mapi python mapi/database/configuration.py"
     print(f"executing {command!r}")
     result = session.run(command, hide=True, warn=True)
-    print(f"{result.ok} - {result.stdout.splitlines()[-1]}")
+
+    try:
+        output = result.stdout.splitlines()[-1]
+    except IndexError:
+        output = result.stdout.splitlines()
+    print(f"{result.ok} - {output}")
     result = session.run("mv database.db mapi/database.db", hide=True, warn=True)
     print(result.ok)
+
+
+@task
+def app(session):
+
+    watcher = Watcher()
+    command = "cd mapi && uvicorn main:app --reload"
+    session.run(command, hide=True, warn=True, pty=True, watchers=[watcher])
+
+    
