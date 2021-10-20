@@ -1,4 +1,4 @@
-from typing import Iterable, Optional
+from typing import List, Optional
 from pydantic import BaseModel
 
 
@@ -7,7 +7,7 @@ class User(BaseModel):
     email: Optional[str] = None
     full_name: Optional[str] = None
     disabled: Optional[bool] = None
-    role_name: Iterable[str] = None
+    role_name: str = None
 
 
 class UserCreate(User):

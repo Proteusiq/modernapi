@@ -1,4 +1,4 @@
-from typing import Dict, Literal
+from typing import Dict, Literal, Union
 from decouple import config
 from sqlmodel import Session, create_engine, select
 from models.user import UserInDB, User
@@ -23,6 +23,19 @@ def get_user(username: str) -> UserInDB:
         user = session.exec(selection).first()
 
         return user
+
+def get_user_role(username: str) -> Union[str, None]:
+
+    engine = get_connection(mode=config("DEBUG_STAGE", default="prod"))
+    with Session(engine) as session:
+        selection = select(UserInDB).where(
+            UserInDB.username == username
+        )
+        user = session.exec(selection).one()
+
+        return user.role_name
+
+
 
 
 def get_users() -> User:

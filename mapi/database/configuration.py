@@ -23,7 +23,7 @@ if __name__ == "__main__":
         full_name="Elliot Alderson",
         password="fsociety",
         disabled=False,
-        role_name=["Admin", ]
+        role_name="admin",
     )
 
     

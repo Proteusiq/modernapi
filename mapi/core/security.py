@@ -108,5 +108,5 @@ async def get_current_active_user(
     return current_user
 
 
-async def is_admin(current_user: User = Security(get_current_user, scopes=["Admin"])):
+async def is_admin(current_user: User = Security(get_current_user, scopes=["admin"])):
     return current_user
