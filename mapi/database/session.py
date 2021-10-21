@@ -93,3 +93,31 @@ def create_user(user: UserCreate) -> Dict[str, bool]:
 
     return {"ok": True}
 
+
+def update_user(user: UserCreate) -> Dict[str, bool]:
+    
+    with Session(engine) as session:
+
+        # check if user exists
+        user_exists = get_user(user.username)
+
+        if not user_exists:
+            return {"ok": False}
+
+    
+        user_exists.hashed_password = get_password_hash(user.password)
+        
+        if user.role_name:
+            user_exists.role_name = user.role_name
+
+        if user.email:
+            user_exists.email = user.email
+
+        if user.full_name:
+            user_exists.full_name = user.full_name
+
+        session.add(user_exists)
+        session.commit()
+        session.refresh(user_exists)
+
+    return {"ok": True}
