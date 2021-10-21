@@ -1,4 +1,4 @@
-from typing import Dict, Literal, Union
+from typing import Dict, List, Union
 from decouple import config
 from sqlalchemy import engine
 from sqlmodel import Session, create_engine, select
@@ -38,15 +38,21 @@ def get_user_role(username: str) -> Union[str, None]:
 
 
 
-def get_users() -> User:
+def get_users() -> List[User]:
 
     with Session(engine) as session:
 
-        selection = select(User)
-        users = session.exec(selection)
+        selection = select(UserInDB)
+        users = session.exec(selection).fetchall()
+        return [User(username=user.username,
+        full_name=user.full_name,
+        email=user.email,
+        disabled=user.disabled,
+        role_name=user.role_name
 
-        return users
-
+        ) for user in users]
+        
+        
 
 def delete_user(username: str) -> Dict[str, bool]:
     

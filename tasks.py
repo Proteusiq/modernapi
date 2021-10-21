@@ -15,14 +15,15 @@ class Watcher(watchers.StreamWatcher):
 
 
 @task
-def clean_cache(session):
+def clean_start(session):
     for c in (
         "$(find ./mapi/**/__pycache__)",
         "$(find ./mapi/__pycache__)",
         "__pycache__",
+        "./mapi/*.db"
     ):
         print(f"executing rm -rf {c!r}")
-        result = session.run("rm -rf {c}", hide=True, warn=True)
+        result = session.run(f"rm -rf {c}", hide=True, warn=True)
         print(result.ok)
 
 
@@ -42,7 +43,7 @@ def init_db(session):
     print(result.ok)
 
 
-@task
+@task(pre=[init_db], post=[clean_start])
 def app(session):
 
     watcher = Watcher()

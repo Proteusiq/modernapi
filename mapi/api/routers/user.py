@@ -1,8 +1,8 @@
-from typing import Iterable
+from typing import List
 from fastapi import APIRouter, Security, Depends, HTTPException
 from schemas.user import User, UserCreate
 from core import security
-from database.session import create_user, delete_user, get_users, get_user
+from database.session import create_user, delete_user, get_users
 
 router = APIRouter(prefix="/users", tags=["User"],)
 
@@ -28,7 +28,7 @@ async def register_user(
     return status
 
 
-@router.get("/", response_model=Iterable[User])
+@router.get("/", response_model=List[User])
 async def get_users_in_db(current_user: User = Security(security.is_admin)):
     return get_users()
 

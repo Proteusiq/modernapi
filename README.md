@@ -29,7 +29,7 @@ Init DB added user `MrRobot` with `fsociety` as password.
 
 # TODO
 * [ ] Add tests
-* [ ] Create Access Level [Admin, Normal, Semi]
-* [ ] Create endpoint to add, update, and delete users 
+* [X] Create Access Level [Admin, Visitor]
+* [X] Create endpoint to add, update, and delete users 
 
     
