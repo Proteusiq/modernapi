@@ -5,6 +5,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 
 from schemas.token import Token
 from core import security
+from database.session import get_user_role
 
 router = APIRouter(prefix="/token", tags=["Authentication"],)
 
@@ -15,8 +16,11 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     if not user:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
     access_token_expires = timedelta(minutes=security.ACCESS_TOKEN_EXPIRE_MINUTES)
+    
+    
+    role = get_user_role(username=form_data.username)
     access_token = security.create_access_token(
-        data={"sub": user.username, "scopes": form_data.scopes},
+        data={"sub": user.username, "scopes": [*form_data.scopes, role]},
         expires_delta=access_token_expires,
     )
     return {"access_token": access_token, "token_type": "bearer"}

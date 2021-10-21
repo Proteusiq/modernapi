@@ -7,7 +7,6 @@ from fastapi.security import (
     SecurityScopes,
 )
 from jose import JWTError, jwt
-from passlib.context import CryptContext
 from pydantic import ValidationError
 
 
@@ -15,6 +14,7 @@ from decouple import config
 
 
 from database.session import get_user
+from core.password import verify_password
 from schemas.user import User
 from schemas.token import TokenData
 
@@ -30,20 +30,14 @@ ACCESS_TOKEN_EXPIRE_MINUTES = config(
 )
 
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 
 oauth2_scheme = OAuth2PasswordBearer(
     tokenUrl="token",
-    scopes={"me": "Read information about the current user.", "items": "Read items."},
+    scopes={"me": "Read information about the current user.",},
 )
 
 
-def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
-
-
-def get_password_hash(password):
-    return pwd_context.hash(password)
 
 
 def authentificate_user(username: str, password: str):
@@ -88,6 +82,7 @@ async def get_current_user(
         token_data = TokenData(scopes=token_scopes, username=username)
     except (JWTError, ValidationError):
         raise credentials_exception
+    
     user = get_user(username=token_data.username)
     if user is None:
         raise credentials_exception
@@ -110,4 +105,8 @@ async def get_current_active_user(
 ):
     if current_user.disabled:
         raise HTTPException(status_code=400, detail="Inactive user")
+    return current_user
+
+
+async def is_admin(current_user: User = Security(get_current_user, scopes=["admin"])):
     return current_user
