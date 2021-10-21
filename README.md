@@ -8,14 +8,13 @@ Building secured API with `FastAPI` and `SQLModel`
 
 ## Installation
 
-Install and running mapi with `poetry`
+Install and running mapi with `poetry`. Invoke will create a temporary sqliteDB
+and delete it with app tear down. 
 
 ```bash
 git clone https://github.com/Proteusiq/modernapi.git && cd modernapi
 poetry install
-invoke init-db
-cd mapi
-uvicorn main:app --reload  
+invoke app
 ```
 
 # Project Direction
