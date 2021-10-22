@@ -23,7 +23,7 @@ def get_user(username: str) -> UserInDB:
         selection = select(UserInDB).where(UserInDB.username == username)
         user = session.exec(selection).first()
 
-        return user
+    return user
 
 def get_user_role(username: str) -> Union[str, None]:
 
@@ -33,7 +33,7 @@ def get_user_role(username: str) -> Union[str, None]:
         )
         user = session.exec(selection).one()
 
-        return user.role_name
+    return user.role_name
 
 
 
@@ -44,7 +44,8 @@ def get_users() -> List[User]:
 
         selection = select(UserInDB)
         users = session.exec(selection).fetchall()
-        return [User(username=user.username,
+        
+    return [User(username=user.username,
         full_name=user.full_name,
         email=user.email,
         disabled=user.disabled,
@@ -66,7 +67,8 @@ def delete_user(username: str) -> Dict[str, bool]:
 
         session.delete(user)
         session.commit()
-        return {"ok": True}
+    
+    return {"ok": True}
 
 
 
@@ -106,10 +108,15 @@ def update_user(user: UserCreate) -> Dict[str, bool]:
 
     
         users_updates = user.dict(exclude_unset=True, exclude_none=True)
+        users_updates.pop("username", None)
         if users_updates.pop('password', None):
             users_updates["hashed_password"] = get_password_hash(user.password)
         
-        user_exists = user_exists.copy(update=users_updates)
+        
+        # update without changing memory id
+        {setattr(user_exists, updated_field, updated_value) 
+        for updated_field, updated_value in users_updates.items()}
+        
 
         session.add(user_exists)
         session.commit()
