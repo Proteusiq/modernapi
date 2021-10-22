@@ -45,7 +45,7 @@ async def get_users_in_db(current_user: User = Security(security.is_admin)):
     return get_users()
 
 
-@router.post("/delete/")
+@router.delete("/delete/")
 async def remove_user(
     username: str, current_user: User = Security(security.is_admin)
 ):
