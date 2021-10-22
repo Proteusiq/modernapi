@@ -3,7 +3,7 @@ from decouple import config
 from sqlalchemy import engine
 from sqlmodel import Session, create_engine, select
 from models.user import UserInDB, User
-from schemas.user import UserCreate
+from schemas.user import UserCreate, UserUpdate
 from core.password import get_password_hash
 
 
@@ -96,7 +96,7 @@ def create_user(user: UserCreate) -> Dict[str, bool]:
     return {"ok": True}
 
 
-def update_user(user: UserCreate) -> Dict[str, bool]:
+def update_user(user: UserUpdate) -> Dict[str, bool]:
     
     with Session(engine) as session:
 
