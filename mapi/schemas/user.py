@@ -6,12 +6,15 @@ class User(BaseModel):
     username: str
     email: Optional[str] = None
     full_name: Optional[str] = None
-    disabled: Optional[bool] = None
-    role_name: Literal["admin", "visitor"] = None
+    disabled: Optional[bool] = False
+    role_name: Literal["admin", "visitor"] = "visitor"
 
 
 class UserCreate(User):
     password: str
+
+class UserUpdate(User):
+    password: Optional[str] = None
 
 
 class UserInDB(User):

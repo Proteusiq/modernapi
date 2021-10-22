@@ -3,7 +3,7 @@ from decouple import config
 from sqlalchemy import engine
 from sqlmodel import Session, create_engine, select
 from models.user import UserInDB, User
-from schemas.user import UserCreate
+from schemas.user import UserCreate, UserUpdate
 from core.password import get_password_hash
 
 
@@ -23,7 +23,7 @@ def get_user(username: str) -> UserInDB:
         selection = select(UserInDB).where(UserInDB.username == username)
         user = session.exec(selection).first()
 
-        return user
+    return user
 
 def get_user_role(username: str) -> Union[str, None]:
 
@@ -33,7 +33,7 @@ def get_user_role(username: str) -> Union[str, None]:
         )
         user = session.exec(selection).one()
 
-        return user.role_name
+    return user.role_name
 
 
 
@@ -44,7 +44,8 @@ def get_users() -> List[User]:
 
         selection = select(UserInDB)
         users = session.exec(selection).fetchall()
-        return [User(username=user.username,
+        
+    return [User(username=user.username,
         full_name=user.full_name,
         email=user.email,
         disabled=user.disabled,
@@ -66,7 +67,8 @@ def delete_user(username: str) -> Dict[str, bool]:
 
         session.delete(user)
         session.commit()
-        return {"ok": True}
+    
+    return {"ok": True}
 
 
 
@@ -94,7 +96,7 @@ def create_user(user: UserCreate) -> Dict[str, bool]:
     return {"ok": True}
 
 
-def update_user(user: UserCreate) -> Dict[str, bool]:
+def update_user(user: UserUpdate) -> Dict[str, bool]:
     
     with Session(engine) as session:
 
@@ -105,16 +107,16 @@ def update_user(user: UserCreate) -> Dict[str, bool]:
             return {"ok": False}
 
     
-        user_exists.hashed_password = get_password_hash(user.password)
+        users_updates = user.dict(exclude_unset=True, exclude_none=True)
+        users_updates.pop("username", None)
+        if users_updates.pop('password', None):
+            users_updates["hashed_password"] = get_password_hash(user.password)
         
-        if user.role_name:
-            user_exists.role_name = user.role_name
-
-        if user.email:
-            user_exists.email = user.email
-
-        if user.full_name:
-            user_exists.full_name = user.full_name
+        
+        # update without changing memory id
+        {setattr(user_exists, updated_field, updated_value) 
+        for updated_field, updated_value in users_updates.items()}
+        
 
         session.add(user_exists)
         session.commit()
