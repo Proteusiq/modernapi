@@ -105,16 +105,11 @@ def update_user(user: UserCreate) -> Dict[str, bool]:
             return {"ok": False}
 
     
-        user_exists.hashed_password = get_password_hash(user.password)
+        users_updates = user.dict(exclude_unset=True, exclude_none=True)
+        if users_updates.pop('password', None):
+            users_updates["hashed_password"] = get_password_hash(user.password)
         
-        if user.role_name:
-            user_exists.role_name = user.role_name
-
-        if user.email:
-            user_exists.email = user.email
-
-        if user.full_name:
-            user_exists.full_name = user.full_name
+        user_exists = user_exists.copy(update=users_updates)
 
         session.add(user_exists)
         session.commit()
