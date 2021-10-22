@@ -19,7 +19,10 @@ invoke app
 
 # Project Direction
 My desire is  to create a template that is simple and robust. 
-Level access and admin power to CRUD users are next on my table. <br>
+* ~~Level access and admin power to CRUD users are next on my table~~.
+* Using Postgres as a database [most likely a branch - postgress]
+* Using Celery as background executor [most likely a brance - celery]
+
 I welcome PR and any help to make this repository a starting point for building secured APIs.
 
 # API
