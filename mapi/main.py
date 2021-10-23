@@ -4,7 +4,7 @@ from api.routers import auth, admin, user, status
 
 app = FastAPI(
     title="Python Weekend API",
-    description="Inspire By Prayson's Madness",
+    description="Inspired By Prayson's Madness",
     version="0.0.2",
 )
 
