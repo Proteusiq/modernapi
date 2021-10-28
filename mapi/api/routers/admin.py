@@ -1,6 +1,6 @@
 from typing import List
-from fastapi import APIRouter, Security, Depends, HTTPException
-from schemas.user import User, UserCreate
+from fastapi import APIRouter, Security, HTTPException
+from schemas.user import User, UserCreate, UserUpdate
 from core import security
 from database.session import create_user, delete_user, get_users, update_user
 
@@ -26,7 +26,7 @@ async def register_user(
 
 @router.patch("/update/")
 async def update_user_in_db(
-    user: UserCreate,
+    user: UserUpdate,
     current_user: User = Security(security.is_admin),
 ):
 
