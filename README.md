@@ -1,7 +1,7 @@
 
 # Modern API
 
-Building secured API with `FastAPI` and `SQLModel` running behind NGINX
+Building secured API with `FastAPI` and `SQLModel` running behind `NGINX`
 
 
 
