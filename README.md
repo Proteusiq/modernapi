@@ -13,6 +13,9 @@ Running mapi with `docker`.
 ```bash
 git clone https://github.com/Proteusiq/modernapi.git && cd modernapi
 docker-compose up -d
+
+# run below to take it down
+# docker-compose down
 ```
 
 # Project Direction
