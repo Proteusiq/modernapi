@@ -15,7 +15,7 @@ COPY mapi ./mapi
 RUN pip install --upgrade pip \
     pip install -r requirements.txt 
 
-COPY .env .env
+COPY mapi/.env .env
 RUN chown -R $user:$user /app
 
 ENV DATABASE_URL=${DATABASE_URL:-'sqlite:///database.db'}

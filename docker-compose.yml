@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  nginx:
+    # build:
+      # context: ./deployment/nginx
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./deployment/ngnix/nginx.conf:/etc/nginx/nginx.conf
+    container_name: nginx
+    depends_on:
+      - api
+
+  api:
+    build: 
+      context: ./deployment/api
+      dockerfile: Dockerfile
+      args:
+        DATABASE_URL: 'sqlite///database.db'
+
+    image: mapi:latest
+    env_file:
+      - mapi/.env
+    container_name: mapi
