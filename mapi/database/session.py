@@ -10,9 +10,13 @@ from core.password import get_password_hash
 DATABASE_URL = config("DATABASE_URI", default="sqlite:///database.db")
 DEBUG_MODE= config("DEBUG_STAGE", default="prod")
 
-engine = create_engine(DATABASE_URL,  connect_args={"sslmode": "required"}, echo=False)
+
 if DEBUG_MODE == "dev":
-    engine = create_engine(DATABASE_URL, echo=True)
+    engine = create_engine(
+            DATABASE_URL, connect_args={"check_same_thread": False}, echo=True
+        )
+else:
+    engine = create_engine(DATABASE_URL,  connect_args={"sslmode": "required"}, echo=False)
 
 
 

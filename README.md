@@ -1,20 +1,18 @@
 
 # Modern API
 
-Building secured API with `FastAPI` and `SQLModel`
+Building secured API with `FastAPI` and `SQLModel` running behind NGINX
 
 
 
 
 ## Installation
 
-Install and running mapi with `poetry`. Invoke will create a temporary sqliteDB
-and delete it with app tear down. 
+Running mapi with `docker`. 
 
 ```bash
 git clone https://github.com/Proteusiq/modernapi.git && cd modernapi
-poetry install
-invoke app
+docker-compose up -d
 ```
 
 # Project Direction
@@ -29,7 +27,7 @@ My desire is  to create a template that is simple and robust.
 I welcome PR and any help to make this repository a starting point for building secured APIs.
 
 # API
-API swagger is running at `localhost:8000/docs`. <br>
+API swagger is running at `localhost/docs`. <br>
 Init DB added user `MrRobot` with `fsociety` as password. 
 
 # TODO
