@@ -1,38 +1,50 @@
-from sqlmodel import SQLModel, create_engine
+from http.client import TEMPORARY_REDIRECT
+from sqlalchemy.exc import IntegrityError
+from sqlmodel import SQLModel, Session, create_engine
 from decouple import config
 
+from core.password import get_password_hash
+from models.user import Role, UserInDB
 
 
 DATABASE_URL = config("DATABASE_URI", default="sqlite:///database.db")
 engine = create_engine(DATABASE_URL, echo=False)
 
 
-def create_db_and_tables():
+
+def create_roles(session):
+    try:
+        admin = Role(name="admin", description="Administrator")
+        visitor = Role(name="visitor", description="User")
+        session.add(admin)
+        session.add(visitor)
+        session.commit()
+
+    except IntegrityError:
+        session.rollback()
+    finally:
+        session.close()
+
+def create_admin(session):
+    try:
+        admin = UserInDB(
+            username="MrRobot",
+            email="elliotalderson@protonmail.ch",
+            full_name="Elliot Alderson",
+            hashed_password=get_password_hash("fsociety"),
+            role_name="admin",
+        )
+        session.add(admin)
+        session.commit()
+
+    except IntegrityError:
+        session.rollback()
+
+    finally:
+        session.close()
+
+def setup_db(engine):
     SQLModel.metadata.create_all(engine)
-
-
-if __name__ == "__main__":
-    from schemas.user import UserCreate
-    from database.session import get_user, create_user
-
-    create_db_and_tables()
-
-    admin = UserCreate(
-        username="MrRobot",
-        email="elliotalderson@protonmail.ch",
-        full_name="Elliot Alderson",
-        password="fsociety",
-        disabled=False,
-        role_name="admin",
-    )
-
-    
-    create_user(user=admin)
-    print(f"[+]  Created {admin.username!r}")
-
-    # Test:
-
-    print(f"[+]  Retrieve {admin.username!r}")
-    user = get_user(admin.username)
-
-    print((f"User {user.full_name!r} added to DB"))
+    with Session(engine) as session:
+        create_roles(session)
+        create_admin(session)
