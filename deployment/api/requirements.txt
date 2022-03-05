@@ -1,0 +1,10 @@
+bcrypt>=3.2.0
+fastapi>=0.61.1
+gunicorn>=20.1.0
+passlib>=1.7.4
+python-decouple>=3.5
+python-dotenv>=0.5.1
+python-jose>=3.3.0
+python-multipart>=0.0.5
+sqlmodel>=0.0.4
+uvicorn>=0.15.0
