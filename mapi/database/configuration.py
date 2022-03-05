@@ -1,5 +1,5 @@
 from http.client import TEMPORARY_REDIRECT
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError, OperationalError
 from sqlmodel import SQLModel, Session, create_engine
 from decouple import config
 
@@ -20,7 +20,7 @@ def create_roles(session):
         session.add(visitor)
         session.commit()
 
-    except IntegrityError:
+    except (IntegrityError, OperationalError):
         session.rollback()
     finally:
         session.close()
@@ -37,14 +37,16 @@ def create_admin(session):
         session.add(admin)
         session.commit()
 
-    except IntegrityError:
+    except (IntegrityError, OperationalError):
         session.rollback()
 
     finally:
         session.close()
 
 def setup_db(engine):
+    print("Creating Tables")
     SQLModel.metadata.create_all(engine)
     with Session(engine) as session:
+        print("Creating Roles and Users")
         create_roles(session)
         create_admin(session)
