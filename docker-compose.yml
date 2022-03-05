@@ -15,8 +15,8 @@ services:
 
   api:
     build: 
-      context: ./deployment/api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./deployment/api/Dockerfile
       args:
         DATABASE_URL: 'sqlite///database.db'
 

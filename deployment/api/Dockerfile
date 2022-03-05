@@ -9,8 +9,8 @@ WORKDIR /app
 
 
 
-COPY deployment/api/requirements.txt ./
-COPY mapi ./mapi
+COPY ./deployment/api/requirements.txt ./
+COPY ./mapi ./mapi
 
 RUN pip install --upgrade pip \
     pip install -r requirements.txt 
