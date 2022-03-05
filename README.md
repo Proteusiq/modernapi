@@ -18,6 +18,15 @@ docker-compose up -d
 # docker-compose down
 ```
 
+Running mapi with `invoke`
+
+```bash
+poetry install
+invoke app
+```
+
+
+
 # Project Direction
 My desire is  to create a template that is simple and robust. 
 * ~~Level access and admin power to CRUD users are next on my table~~.
