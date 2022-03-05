@@ -20,7 +20,7 @@ def clean_start(session):
         "$(find ./mapi/**/__pycache__)",
         "$(find ./mapi/__pycache__)",
         "__pycache__",
-        "./mapi/*.db"
+        # "./mapi/*.db"
     ):
         print(f"executing rm -rf {c!r}")
         result = session.run(f"rm -rf {c}", hide=True, warn=True)
