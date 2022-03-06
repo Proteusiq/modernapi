@@ -8,7 +8,7 @@ from mapi.models.user import Role, UserInDB
 
 
 DATABASE_URI = config("DATABASE_URI", default="sqlite:////tmp/database.db")
-engine = create_engine(DATABASE_URI, echo=True)
+engine = create_engine(DATABASE_URI, echo=False)
 
 
 def create_roles(session):
@@ -51,6 +51,5 @@ def setup_db(engine):
         print("Tables already exists")
     
     with Session(engine) as session:
-        print("Creating Roles and Users")
         create_roles(session)
         create_admin(session)

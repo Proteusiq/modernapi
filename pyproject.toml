@@ -22,6 +22,7 @@ pytest = "^6.2.5"
 pylint = "^2.11.1"
 invoke = "^1.6.0"
 requests = "^2.27.1"
+pytest-dependency = "^0.5.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

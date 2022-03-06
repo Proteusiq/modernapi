@@ -16,6 +16,10 @@ if DEBUG_MODE == "dev":
     engine = create_engine(
         DATABASE_URI, connect_args={"check_same_thread": False}, echo=True
     )
+elif DEBUG_MODE == "stage":
+    engine = create_engine(
+        DATABASE_URI, connect_args={"check_same_thread": False}, echo=False
+    )
 else:
     engine = create_engine(
         DATABASE_URI, connect_args={"sslmode": "required"}, echo=False

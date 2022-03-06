@@ -1,8 +1,25 @@
+import json
 import pytest
 from starlette.testclient import TestClient
-
 from mapi.main import app
 
+
+
+create_visitor = {
+    "username": "visitor",
+    "email": "visitor@nonexists.co",
+    "full_name": "Joe Visitor",
+    "disabled": True,
+    "role_name": "visitor",
+    "password": "gsociety",
+}
+
+@pytest.fixture(scope="session", autouse=True)
+def cleanup(request):
+    def clean_up():
+        """logic to cleanup"""
+        ...
+    request.addfinalizer(clean_up)
 
 @pytest.fixture()
 def test_client():
@@ -13,25 +30,35 @@ def test_client():
 @pytest.fixture()
 def admins_token(test_client):
 
-    responce = test_client.post(
+    response = test_client.post(
         "/token/",
         data={
             "grant_type": "",
-            "username": "admin",
+            "username": "MrRobot",
             "client_id": "",
             "client_secret": "",
-            "password": "Admin_Super_Secret_#666",
+            "password": "fsociety",
         },
         headers={
             "accept": "application/json",
             "Content-Type": "application/x-www-form-urlencoded",
         },
     )
-    yield responce.json()["access_token"]
+    yield response.json()["access_token"]
 
 
 @pytest.fixture()
-def visitors_token(test_client):
+def visitors_token(test_client, admins_token):
+
+    _ = test_client.post(
+        "/admin/add/",
+        data=json.dumps(create_visitor),
+        headers={
+            "accept": "applicaton/json",
+            "Authorization": f"Bearer {admins_token}",
+            "Content-Type": "application/json",
+        },
+    )
 
     response = test_client.post(
         "/token/",
@@ -40,7 +67,7 @@ def visitors_token(test_client):
             "username": "visitor",
             "client_id": "",
             "client_secret": "",
-            "password": "Visitor_Super_Secret_#616",
+            "password": "gsociety",
         },
         headers={
             "accept": "application/json",
