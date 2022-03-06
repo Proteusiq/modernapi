@@ -18,6 +18,5 @@ services:
     build: 
       context: .
       dockerfile: ./deployment/api/Dockerfile
-
     image: mapi:latest
     container_name: mapi
