@@ -1,7 +1,7 @@
 
 # Modern API
 
-Building secured API with `FastAPI` and `SQLModel` running behind NGINX
+Building secured API with `FastAPI` and `SQLModel` running behind `NGINX`
 
 
 
@@ -17,6 +17,15 @@ docker-compose up -d
 # run below to take it down
 # docker-compose down
 ```
+
+Running mapi with `invoke`
+
+```bash
+poetry install
+invoke app
+```
+
+
 
 # Project Direction
 My desire is  to create a template that is simple and robust. 
