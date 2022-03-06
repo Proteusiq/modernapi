@@ -8,18 +8,15 @@ from fastapi.security import (
 )
 from jose import JWTError, jwt
 from pydantic import ValidationError
-
-
 from decouple import config
 
-
 from mapi.database.session import get_user
-from core.password import verify_password
+from mapi.core.password import verify_password
 from mapi.schemas.user import User
 from mapi.schemas.token import TokenData
 
 
-DATABASE_URL = config("DATABASE_URI", default="sqlite:///database.db")
+DATABASE_URI = config("DATABASE_URI", default="sqlite:///database.db")
 SECRET_KEY = config(
     "SECRET_KEY",
     default="09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7",

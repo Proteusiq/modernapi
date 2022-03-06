@@ -12,13 +12,13 @@ RUN pip install --upgrade pip \
     pip install -r requirements.txt 
 
 COPY ./mapi ./mapi
-COPY ./deployment/api/.env.example ./mapi/.env
+COPY ./deployment/api/.env.example .env
 RUN chown -R $user:$user /app
 
-WORKDIR /app/mapi
+ENV PYTHONPATH mapi
 
 USER $USER
 
 EXPOSE 8000
 
-CMD ["gunicorn", "main:app", "--workers", "4", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "mapi.main:app", "--workers", "4", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8000"]

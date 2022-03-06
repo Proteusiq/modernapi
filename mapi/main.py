@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from api.routers import auth, admin, user, heartbeat
-from core.event_handlers import start_app_handler, stop_app_handler
+from mapi.api.routers import auth, admin, user, heartbeat
+from mapi.core.event_handlers import start_app_handler, stop_app_handler
 
 
 app = FastAPI(

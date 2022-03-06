@@ -1,5 +1,4 @@
 from typing import Callable
-
 from fastapi import FastAPI
 
 from mapi.database.session import engine

@@ -3,12 +3,12 @@ from sqlalchemy.exc import IntegrityError, OperationalError
 from sqlmodel import SQLModel, Session, create_engine
 from decouple import config
 
-from core.password import get_password_hash
-from models.user import Role, UserInDB
+from mapi.core.password import get_password_hash
+from mapi.models.user import Role, UserInDB
 
 
-DATABASE_URL = config("DATABASE_URI", default="sqlite:///database.db")
-engine = create_engine(DATABASE_URL, echo=False)
+DATABASE_URI = config("DATABASE_URI", default="sqlite:////tmp/database.db")
+engine = create_engine(DATABASE_URI, echo=True)
 
 
 def create_roles(session):
@@ -45,8 +45,11 @@ def create_admin(session):
 
 
 def setup_db(engine):
-    print("Creating Tables")
-    SQLModel.metadata.create_all(engine)
+    try:
+        SQLModel.metadata.create_all(engine)
+    except OperationalError:
+        print("Tables already exists")
+    
     with Session(engine) as session:
         print("Creating Roles and Users")
         create_roles(session)

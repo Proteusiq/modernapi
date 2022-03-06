@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from models.heartbeat import HearbeatResult
+from mapi.models.heartbeat import HearbeatResult
 
 router = APIRouter(
     prefix="/health",

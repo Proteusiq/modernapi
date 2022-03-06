@@ -2,22 +2,23 @@ from typing import Dict, List, Union
 from decouple import config
 from sqlalchemy import engine
 from sqlmodel import Session, create_engine, select
-from models.user import UserInDB, User
+
+from mapi.models.user import UserInDB, User
 from mapi.schemas.user import UserCreate, UserUpdate
-from core.password import get_password_hash
+from mapi.core.password import get_password_hash
 
 
-DATABASE_URL = config("DATABASE_URI", default="sqlite:///database.db")
+DATABASE_URI = config("DATABASE_URI", default="sqlite:///database.db")
 DEBUG_MODE = config("DEBUG_STAGE", default="prod")
 
 
 if DEBUG_MODE == "dev":
     engine = create_engine(
-        DATABASE_URL, connect_args={"check_same_thread": False}, echo=True
+        DATABASE_URI, connect_args={"check_same_thread": False}, echo=True
     )
 else:
     engine = create_engine(
-        DATABASE_URL, connect_args={"sslmode": "required"}, echo=False
+        DATABASE_URI, connect_args={"sslmode": "required"}, echo=False
     )
 
 
