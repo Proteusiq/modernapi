@@ -1,17 +1,16 @@
 from invoke import task, watchers
 
 
-class Watcher(watchers.StreamWatcher):                                 
-    def __init__(self):                                                         
-        super().__init__()                                                      
-        self.len = 0                                                            
-                                                                                
-    def submit(self, stream):                                                   
-        new = stream[self.len:]                                                 
-        print(new, end='')                                                      
-        self.len = len(stream)                                                  
-        return []  
+class Watcher(watchers.StreamWatcher):
+    def __init__(self):
+        super().__init__()
+        self.len = 0
 
+    def submit(self, stream):
+        new = stream[self.len :]
+        print(new, end="")
+        self.len = len(stream)
+        return []
 
 
 @task
@@ -27,13 +26,9 @@ def clean_start(session):
         print(result.ok)
 
 
-
-
 @task(post=[clean_start])
 def app(session):
 
     watcher = Watcher()
     command = "cd mapi && uvicorn main:app --reload"
     session.run(command, hide=True, warn=True, pty=True, watchers=[watcher])
-
-    

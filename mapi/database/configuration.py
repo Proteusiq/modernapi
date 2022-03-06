@@ -11,7 +11,6 @@ DATABASE_URL = config("DATABASE_URI", default="sqlite:///database.db")
 engine = create_engine(DATABASE_URL, echo=False)
 
 
-
 def create_roles(session):
     try:
         admin = Role(name="admin", description="Administrator")
@@ -24,6 +23,7 @@ def create_roles(session):
         session.rollback()
     finally:
         session.close()
+
 
 def create_admin(session):
     try:
@@ -42,6 +42,7 @@ def create_admin(session):
 
     finally:
         session.close()
+
 
 def setup_db(engine):
     print("Creating Tables")

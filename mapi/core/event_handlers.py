@@ -2,8 +2,8 @@ from typing import Callable
 
 from fastapi import FastAPI
 
-from database.session import engine
-from database.configuration import setup_db
+from mapi.database.session import engine
+from mapi.database.configuration import setup_db
 
 
 def start_app_handler(app: FastAPI) -> Callable:

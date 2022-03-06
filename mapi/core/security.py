@@ -13,10 +13,10 @@ from pydantic import ValidationError
 from decouple import config
 
 
-from database.session import get_user
+from mapi.database.session import get_user
 from core.password import verify_password
-from schemas.user import User
-from schemas.token import TokenData
+from mapi.schemas.user import User
+from mapi.schemas.token import TokenData
 
 
 DATABASE_URL = config("DATABASE_URI", default="sqlite:///database.db")
@@ -30,14 +30,12 @@ ACCESS_TOKEN_EXPIRE_MINUTES = config(
 )
 
 
-
-
 oauth2_scheme = OAuth2PasswordBearer(
     tokenUrl="token",
-    scopes={"me": "Read information about the current user.",},
+    scopes={
+        "me": "Read information about the current user.",
+    },
 )
-
-
 
 
 def authentificate_user(username: str, password: str):
@@ -82,7 +80,7 @@ async def get_current_user(
         token_data = TokenData(scopes=token_scopes, username=username)
     except (JWTError, ValidationError):
         raise credentials_exception
-    
+
     user = get_user(username=token_data.username)
     if user is None:
         raise credentials_exception

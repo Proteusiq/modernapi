@@ -21,7 +21,5 @@ class UserInDB(SQLModel, table=True):
     full_name: str
     disabled: Optional[bool] = False
     hashed_password: str
-    role_name : str = Field(default="visitor", foreign_key="role.name")
+    role_name: str = Field(default="visitor", foreign_key="role.name")
     role: Role = Relationship(back_populates="users")
-    
-

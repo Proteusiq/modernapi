@@ -1,11 +1,13 @@
 from typing import List
 from fastapi import APIRouter, Security, HTTPException
-from schemas.user import User, UserCreate, UserUpdate
-from core import security
-from database.session import create_user, delete_user, get_users, update_user
+from mapi.schemas.user import User, UserCreate, UserUpdate
+from mapi.core import security
+from mapi.database.session import create_user, delete_user, get_users, update_user
 
-router = APIRouter(prefix="/admin", tags=["Administrator"],)
-
+router = APIRouter(
+    prefix="/admin",
+    tags=["administrator"],
+)
 
 
 @router.post("/add/")
@@ -20,7 +22,7 @@ async def register_user(
             status_code=409,
             detail=f"Username {user.username} is taken",
         )
-    
+
     return status
 
 
@@ -36,7 +38,7 @@ async def update_user_in_db(
             status_code=409,
             detail=f"Username {user.username} does not exist",
         )
-    
+
     return status
 
 
@@ -46,9 +48,7 @@ async def get_users_in_db(current_user: User = Security(security.is_admin)):
 
 
 @router.delete("/delete/")
-async def remove_user(
-    username: str, current_user: User = Security(security.is_admin)
-):
+async def remove_user(username: str, current_user: User = Security(security.is_admin)):
     status = delete_user(username=username)
     if not status.get("ok"):
         raise HTTPException(

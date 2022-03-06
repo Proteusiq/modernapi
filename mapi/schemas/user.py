@@ -13,6 +13,7 @@ class User(BaseModel):
 class UserCreate(User):
     password: str
 
+
 class UserUpdate(User):
     password: Optional[str] = None
 
