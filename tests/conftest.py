@@ -1,8 +1,8 @@
+# -*- coding: utf-8 -*-
 import json
 import pytest
 from starlette.testclient import TestClient
 from mapi.main import app
-
 
 
 create_visitor = {
@@ -14,12 +14,15 @@ create_visitor = {
     "password": "gsociety",
 }
 
+
 @pytest.fixture(scope="session", autouse=True)
 def cleanup(request):
     def clean_up():
         """logic to cleanup"""
         ...
+
     request.addfinalizer(clean_up)
+
 
 @pytest.fixture()
 def test_client():

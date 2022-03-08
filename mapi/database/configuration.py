@@ -1,10 +1,11 @@
-from http.client import TEMPORARY_REDIRECT
+# -*- coding: utf-8 -*-
 from sqlalchemy.exc import IntegrityError, OperationalError
 from sqlmodel import SQLModel, Session, create_engine
 from decouple import config
 
 from mapi.core.password import get_password_hash
 from mapi.models.user import Role, UserInDB
+from mapi.settings.lazylogger import logger
 
 
 DATABASE_URI = config("DATABASE_URI", default="sqlite:////tmp/database.db")
@@ -48,8 +49,8 @@ def setup_db(engine):
     try:
         SQLModel.metadata.create_all(engine)
     except OperationalError:
-        print("Tables already exists")
-    
+        logger.info("Tables already exists")
+
     with Session(engine) as session:
         create_roles(session)
         create_admin(session)

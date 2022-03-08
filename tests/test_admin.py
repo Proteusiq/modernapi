@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 import pytest
 
@@ -22,7 +23,7 @@ update_payload = {
 
 @pytest.mark.dependency()
 def test_add_user(test_client, admins_token):
-    
+
     response = test_client.post(
         "/admin/add/",
         data=json.dumps(payload),

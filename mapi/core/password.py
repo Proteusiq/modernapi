@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from passlib.context import CryptContext
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

@@ -1,6 +1,6 @@
+# -*- coding: utf-8 -*-
 from typing import Dict, List, Union
 from decouple import config
-from sqlalchemy import engine
 from sqlmodel import Session, create_engine, select
 
 from mapi.models.user import UserInDB, User

@@ -1,5 +1,4 @@
-
-
+# -*- coding: utf-8 -*-
 def test_login(test_client):
     responce = test_client.post(
         "/token/",
@@ -16,7 +15,8 @@ def test_login(test_client):
         },
     )
     assert responce.status_code == 200
-   
+
+
 def test_login_wrong_username(test_client):
     responce = test_client.post(
         "/token/",

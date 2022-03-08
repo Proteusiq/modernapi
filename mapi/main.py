@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from fastapi import FastAPI
 from mapi.api.routers import auth, admin, user, heartbeat
 from mapi.core.event_handlers import start_app_handler, stop_app_handler

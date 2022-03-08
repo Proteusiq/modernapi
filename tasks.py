@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 from invoke import task, watchers
+from mapi.settings.lazylogger import logger
 
 
 class Watcher(watchers.StreamWatcher):
@@ -8,7 +10,7 @@ class Watcher(watchers.StreamWatcher):
 
     def submit(self, stream):
         new = stream[self.len :]
-        print(new, end="")
+        logger.info(new, end="")
         self.len = len(stream)
         return []
 
@@ -21,9 +23,9 @@ def clean_start(session):
         "__pycache__",
         # "./mapi/*.db"
     ):
-        print(f"executing rm -rf {c!r}")
+        logger.info(f"executing rm -rf {c!r}")
         result = session.run(f"rm -rf {c}", hide=True, warn=True)
-        print(result.ok)
+        logger.info(result.ok)
 
 
 @task(post=[clean_start])

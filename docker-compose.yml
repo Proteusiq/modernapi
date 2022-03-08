@@ -15,7 +15,7 @@ services:
       - api
 
   api:
-    build: 
+    build:
       context: .
       dockerfile: ./deployment/api/Dockerfile
     image: mapi:latest

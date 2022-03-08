@@ -23,6 +23,9 @@ pylint = "^2.11.1"
 invoke = "^1.6.0"
 requests = "^2.27.1"
 pytest-dependency = "^0.5.1"
+detect-secrets = "^1.2.0"
+mypy = "^0.931"
+pre-commit = "^2.17.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

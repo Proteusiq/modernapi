@@ -9,7 +9,7 @@ WORKDIR /app
 COPY ./deployment/api/requirements.txt ./
 
 RUN pip install --upgrade pip \
-    pip install -r requirements.txt 
+    pip install -r requirements.txt
 
 COPY ./mapi ./mapi
 COPY ./deployment/api/.env.example .env

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from fastapi import APIRouter, Depends
 from mapi.schemas.user import User
 from mapi.core import security

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from typing import List
 from fastapi import APIRouter, Security, HTTPException
 from mapi.schemas.user import User, UserCreate, UserUpdate
