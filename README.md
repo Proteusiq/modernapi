@@ -47,5 +47,6 @@ Init DB added user `MrRobot` with `fsociety` as password.
 * [X] Create Access Level [Admin, Visitor]
 * [X] Create endpoint to add, update, and delete users
 * [ ] Replace prints with logging
+* [ ] Add a simple Admin UI
 * [ ] Allow None Admin to change their fullname, email and password
 * [ ] Add strong password and email validation with Pydantic
