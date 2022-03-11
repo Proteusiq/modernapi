@@ -8,7 +8,7 @@ Building secured API with `FastAPI` and `SQLModel` running behind `NGINX`
 
 ## Installation
 
-Running mapi with `docker`.
+Running mapi with `docker` to get FastAPI behind Nginx as proxy
 
 ```bash
 git clone https://github.com/Proteusiq/modernapi.git && cd modernapi
@@ -16,6 +16,7 @@ docker-compose up -d
 
 # run below to take it down
 # docker-compose down
+# head to http://localhost/docs on browser
 ```
 
 Running mapi with `invoke`
@@ -23,6 +24,8 @@ Running mapi with `invoke`
 ```bash
 poetry install
 invoke app
+
+# head to http://localhost:8000/docs
 ```
 
 
