@@ -14,9 +14,9 @@ Running mapi with `docker` to get FastAPI behind Nginx as proxy
 git clone https://github.com/Proteusiq/modernapi.git && cd modernapi
 docker-compose up -d
 
+# head to http://localhost/docs on browser
 # run below to take it down
 # docker-compose down
-# head to http://localhost/docs on browser
 ```
 
 Running mapi with `invoke`
