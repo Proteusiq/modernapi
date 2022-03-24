@@ -13,7 +13,7 @@ RUN pip install --upgrade pip \
 
 COPY ./mapi ./mapi
 COPY ./deployment/api/.env.example .env
-RUN chown -R $user:$user /app
+RUN chown -R $USER:$USER /app
 
 ENV PYTHONPATH mapi
 
