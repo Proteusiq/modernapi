@@ -8,13 +8,13 @@ Building secured API with `FastAPI` and `SQLModel` running behind `NGINX`
 
 ## Installation
 
-Running mapi with `docker` to get FastAPI behind Nginx as proxy
+Running mapi with `docker` to get FastAPI behind Nginx as a proxy
 
 ```bash
 git clone https://github.com/Proteusiq/modernapi.git && cd modernapi
 docker-compose up -d
 
-# head to http://localhost/docs on browser
+# head to http://localhost/docs on the browser
 # run below to take it down
 # docker-compose down
 ```
@@ -31,14 +31,14 @@ invoke app
 
 
 # Project Direction
-My desire is  to create a template that is simple and robust.
+My desire is to create a template that is simple and robust.
 * ~~Level access and admin power to CRUD users are next on my table~~.
 * Using Postgres as a database [most likely a branch - postgress]
-* Using Celery as background executor [most likely a brance - celery]
+* Using Celery as background executor [most likely a branch - celery]
 
 ### Similiar Project with Extras:pre=[init_db]
 [FastAPI + Postgres: Creator of FastAPI = Sebastian](https://github.com/tiangolo/full-stack-fastapi-postgresql) - Superior to this project :D <br>
-[AuthX](https://github.com/yezz123/AuthX) - Ready to use and customizable Authentications and Authorisation management for FastAPI ⚡
+[AuthX](https://github.com/yezz123/AuthX) - Ready to use and customisable Authentications and Authorisation management for FastAPI ⚡
 
 I welcome PR and any help to make this repository a starting point for building secured APIs.
 
