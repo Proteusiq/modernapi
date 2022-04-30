@@ -54,4 +54,4 @@ Init DB added user `MrRobot` with `fsociety` as password.
 * [ ] Add a simple Admin UI
 * [ ] Allow None Admin to change their fullname, email and password
 * [ ] Add strong password and email validation with Pydantic
-* [ ] Terraform deployment via \w and ~\w Kubernetes on Azure, AWS and GCS
+* [ ] Terraform deployment via \w and ~\w Kubernetes on Azure, AWS and GCP
