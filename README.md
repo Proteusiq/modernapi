@@ -37,6 +37,7 @@ My desire is to create a template that is simple and robust.
 * Using Celery as background executor [most likely a branch - celery]
 
 ### Similiar Project with Extras:pre=[init_db]
+[FastAPI-Backend-Template](https://github.com/Aeternalis-Ingenium/FastAPI-Backend-Template) - 🥰🥷🏿👑
 [FastAPI + Postgres: Creator of FastAPI = Sebastian](https://github.com/tiangolo/full-stack-fastapi-postgresql) - Superior to this project :D <br>
 [AuthX](https://github.com/yezz123/AuthX) - Ready to use and customisable Authentications and Authorisation management for FastAPI ⚡
 
