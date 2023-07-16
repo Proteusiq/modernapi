@@ -38,8 +38,13 @@ My desire is to create a template that is simple and robust.
 
 ### Similiar Project with Extras:pre=[init_db]
 [FastAPI-Backend-Template](https://github.com/Aeternalis-Ingenium/FastAPI-Backend-Template) - 🥰🥷🏿👑
-[FastAPI + Postgres: Creator of FastAPI = Sebastian](https://github.com/tiangolo/full-stack-fastapi-postgresql) - Superior to this project :D <br>
+<br>
+[FastAPI + Postgres: Creator of FastAPI = Sebastian](https://github.com/tiangolo/full-stack-fastapi-postgresql) 
+
+- Superior to this project :D <br>
 [AuthX](https://github.com/yezz123/AuthX) - Ready to use and customisable Authentications and Authorisation management for FastAPI ⚡
+
+[FastAPI Genesid](https://github.com/Lolomgrofl/fastapi_genesis/tree/master) Cookiecutter
 
 I welcome PR and any help to make this repository a starting point for building secured APIs.
 
